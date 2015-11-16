@@ -12,6 +12,5 @@ package SimpleBot;
 public class SimpleBot {
     public static void main(String[] args) {
         ClientFrame frame = new ClientFrame("SimpleBot 1.0");
-
     }
 }

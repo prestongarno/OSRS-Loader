@@ -8,6 +8,7 @@ package SimpleBot;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -33,9 +34,8 @@ public class ClientFrame extends JFrame {
 
         //create splashscreen
         try {
-            addSplashScreen(new ImageIcon("src/resources/logo.jpg"));
+            addSplashScreen(new ImageIcon(new URL("http://www.runescape.com/img/rsp777/oldschool_ani.gif")));
         } catch (Exception ex) {
-            ex.printStackTrace();
         }
 
         pack();
@@ -48,7 +48,6 @@ public class ClientFrame extends JFrame {
         while (client.getCanvas() == null) {
             Utilities.sleep(100);
         }
-        
         addClient(client);
     }
 

@@ -46,6 +46,7 @@ public class ClientApplet extends JPanel implements AppletStub {
 
             if (codeMatcher.find() && archiveMatcher.find()) {
                 String Archive = archiveMatcher.group(1);
+                //System.out.println("ARCHIVE: " + Archive);
                 String JarLocation = World + Archive; // world Jar file is: http:OldSchool(world#).runescape.com/ + Archive/JarName
                 System.out.println(JarLocation);
                 String Code = codeMatcher.group(1).replaceAll(".class", "");
@@ -54,7 +55,10 @@ public class ClientApplet extends JPanel implements AppletStub {
                 this.documentBase = new URL(World);
 
                 while (ParameterMatcher.find()) { //for every parameter, add to HashMap<ParamKey, ParamValue>
-                    this.parameters.put(ParameterMatcher.group(1), ParameterMatcher.group(2));
+                    String key = ParameterMatcher.group(1);
+                    String value = ParameterMatcher.group(2);
+                    this.parameters.put(key, value);
+                    //System.out.println("Parameter Loaded! Key: " + key + " \t\t\t Value: " + value);
                 }
 
                 if (!downloadGamePack) { //if you don't want to download the JAR
@@ -63,7 +67,7 @@ public class ClientApplet extends JPanel implements AppletStub {
                 } else { //If you DO want to DL the .jar
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH.mm a");
                     Date date = new Date();
-                    Utilities.downloadFile(new URL(JarLocation), "./gamepack" + dateFormat.format(date).toString() +".jar");
+                    Utilities.downloadFile(new URL(JarLocation), "./gamepack" + dateFormat.format(date).toString() + ".jar");
                     ClassLoader = new URLClassLoader(new URL[]{new URL(JarLocation)});
                     applet = (Applet) ClassLoader.loadClass(Code).newInstance();
                 }
@@ -80,6 +84,8 @@ public class ClientApplet extends JPanel implements AppletStub {
 
     public void start() {
         if (this.applet != null) {
+            //is this getting called
+            System.out.println("Does init() get called?  If you see this it does");
             this.applet.init();
         }
 
